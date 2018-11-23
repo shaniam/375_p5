@@ -8,6 +8,7 @@
 #include <math.h>
 #include <algorithm>
 #include <ctime>
+#include <cstdlib>
 #include <functional>
 #include <time.h>
 using namespace std;
@@ -57,14 +58,27 @@ int hoarsPartition(vector<pair<int, char>>& arr, int p, int r){
 	}
 	//return j;
 }
+
+int randomPartition(vector<pair<int, char>>& arr, int p, int r){
+	int i= rand() % r + p;
+	pair<int, char> other = arr[i];
+	arr[i]=arr[r];
+	arr[r]=other;
+	return partition(arr, p, r);
+
+        
+}
 void quickSort(vector<pair<int, char>>& arr,  int p, int r, int arg){
 	int q;
 	if (p<r){
 		if(arg==0){
-		q=partition(arr ,p, r);
+			q=partition(arr ,p, r);
 		}
 		else if(arg==1){
-		q=hoarsPartition(arr, p, r);
+			q=hoarsPartition(arr, p, r);
+		}
+		else if (arg==2){
+			q=randomPartition(arr, p, r);
 		}
 		quickSort(arr, p, q-1, arg);
 		quickSort(arr, q+1, r, arg);
@@ -73,7 +87,7 @@ void quickSort(vector<pair<int, char>>& arr,  int p, int r, int arg){
 int main(){
 	//vector<pair<int, int>> arr ={(1,2}};
 	vector<pair<int, char>> arr={make_pair(4,'s'),make_pair(2,'s'),make_pair(2,'m'),make_pair(16,'s'),make_pair(13,'s')};
-	quickSort(arr,0, 4, 1);
+	quickSort(arr,0, 4, 2);
 	for (auto x: arr){
 		cerr << x.first << x.second << endl;
 	}
