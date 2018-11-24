@@ -23,33 +23,39 @@ void mergeSort(vector< pair<int, char> > &A, int p, int r);
 int main(){
 	//vector<pair<int, int>> arr ={(1,2}};
 	vector<pair<int, char>> arr={make_pair(4,'s'),make_pair(2,'s'),make_pair(2,'m'),make_pair(16,'s'),make_pair(13,'s')};
-	mergeSort(arr, 0, 4);
+	mergeSort(arr, 0, 5);
 	for (auto x: arr){
 		cerr << x.first << x.second << endl;
 	}
 }
 
-void merge( vector< pair<int,char> > &A, int p, int q, int r){
+void merge( vector< pair<int,char> > &A, int low, int mid, int high){
 
-	int m = q-p+1;
-	int n = r-q;
+	int left = mid-low;
+	int right = high-mid;
 	vector<pair<int, char>> L, R;
-	for(int i=0; i<m-1; i++){
-		L.push_back(A[p+i-1]);
+	int i = 0;
+	for(; i<left; i++){
+		L.push_back(A[low+i]);
 	}
-	for(int i=0; i<n-1; i++){
-		R.push_back(A[q+i]);
+	for(i=0; i<right; i++){
+		R.push_back(A[mid+i]);
 	}
-	pair<int, char> sentinel = make_pair(-1,'!');
+	pair<int, char> sentinel = make_pair(65536,'!');
 	L.push_back(sentinel);
 	R.push_back(sentinel);
-	int i = 1;
-	int j = 1;
-	for(int k = p; k<r; k++){
-		if( (L[i].first != -1) && (L[i].first <= R[j].first) ){
-			A[k] = L[i];
-			i+=1;
-		} else {
+	i = 0;
+	int j = 0;
+	for(int k = low; k<high; k++){
+		if( L[i].first != 65536 ){
+			if(  L[i].first <= R[j].first ){
+				A[k] = L[i];
+				i+=1;
+			} else {
+				A[k] = R[j];
+				j+=1;
+			}
+		} else if(R[j].first != 65536){
 			A[k] = R[j];
 			j+=1;
 		}

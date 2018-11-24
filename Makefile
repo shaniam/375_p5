@@ -14,7 +14,7 @@ clean:
 checkmem:All
 	valgrind ./merge
 
-gdb: test
+gdb: merge
 	gdb -x gdb_cmds.txt merge
 
 
