@@ -92,11 +92,12 @@ void tripartMerge(vector< pair<int, char> > &A, int low, int mid, int high, int 
 	}
 	pair<int, char> sentinel = make_pair(65536,'!');
 	L.push_back(sentinel);
+	C.push_back(sentinel);
 	R.push_back(sentinel);
 	i = 0;
 	int j = 0;
 	int k = 0;
-	for(int l = low; l<high; l++){
+	for(int l = low; l<size; l++){
 
 		if(L[i].first != 65536){
 			if( (L[i].first <= C[j].first) && (L[i].first <= R[k].first) ){
@@ -134,7 +135,7 @@ void tripartMerge(vector< pair<int, char> > &A, int low, int mid, int high, int 
 
 void tripartMSort(vector< pair<int, char> > &A, int p, int r){
 
-	if( r-p>1 ) {
+	if( r-p>2 ) {
 
 		float third = (float)(p+r) / (float)3;
 		int q = ceil(third);
@@ -142,7 +143,10 @@ void tripartMSort(vector< pair<int, char> > &A, int p, int r){
 		tripartMSort(A,p,q);
 		tripartMSort(A,q+1,t);
 		tripartMSort(A,t+1,r);
-		tripartMerge(A,p,q,t,r);
+		tripartMerge(A,p,q,t+1,r);
+
+	}else{
+		mergeSort(A, p, r);
 
 	}
 
