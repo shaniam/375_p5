@@ -1,16 +1,4 @@
-#include <iostream>
-#include <utility>
-#include <iostream>
-#include <string.h>
-#include <fstream>
-#include <vector>
-#include <stdio.h>
-#include <math.h>
-#include <algorithm>
-#include <ctime>
-#include <cstdlib>
-#include <functional>
-#include <time.h>
+#include "mergetest.h"
 
 using namespace std;
 
@@ -29,6 +17,7 @@ int main(){
 	}
 }
 
+//high needs to be total size of the array, not the largest index
 void merge( vector< pair<int,char> > &A, int low, int mid, int high){
 
 	int left = mid-low;
