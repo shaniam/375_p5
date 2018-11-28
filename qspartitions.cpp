@@ -1,3 +1,4 @@
+#include "qspartitions.h"
 #include <iostream>
 #include <utility>
 #include <iostream>
@@ -82,13 +83,5 @@ void quickSort(vector<pair<int, char>>& arr,  int p, int r, int arg){
 		}
 		quickSort(arr, p, q-1, arg);
 		quickSort(arr, q+1, r, arg);
-	}
-}
-int main(){
-	//vector<pair<int, int>> arr ={(1,2}};
-	vector<pair<int, char>> arr={make_pair(4,'s'),make_pair(2,'s'),make_pair(2,'m'),make_pair(16,'s'),make_pair(13,'s')};
-	quickSort(arr,0, 4, 2);
-	for (auto x: arr){
-		cerr << x.first << x.second << endl;
 	}
 }

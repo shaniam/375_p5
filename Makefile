@@ -7,10 +7,9 @@ merge: mergetest.cpp
 	g++ -Wall -g -o merge mergetest.cpp
 
 clean:
-	rm main
+	rm -rf *.txt
+	rm test
 	rm merge
-	ls
-
 checkmem:All
 	valgrind ./merge
 
