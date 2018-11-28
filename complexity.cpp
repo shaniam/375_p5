@@ -35,14 +35,36 @@ int main(){
 	clock_t end;
 	vector<pair<int, char>> arg;
 	ofstream myfile;
-	myfile.open("lastindex.csv", ios_base::app);
+	ofstream mf1;
+	ofstream mf2;
+	myfile.open("lastpivot.csv");
+	mf1.open("randompivot.csv");
+	mf2.open("hoarsepivot.csv");
 	for (int i=0; i<1000; i++){
-		begin=clock();
 		arg=generate(i,100);
+		begin=clock();
+		//arg=generate(i,100);
 		quickSort(arg, 0, arg.size()-1, 0);
 		end=clock();
-		myfile << i << "," << (float)(1000 * end-begin) / CLOCKS_PER_SEC   << endl;
+		myfile << i << "," << (float)(1000 * end-begin) / CLOCKS_PER_SEC << endl;
 	}
+	for (int i=0; i<1000; i++){
+                arg=generate(i,100); 
+                begin=clock();
+                //arg=generate(i,100);
+                quickSort(arg, 0, arg.size()-1, 1);
+                end=clock();
+               	mf1 << i << "," << (float)(1000 * end-begin) / CLOCKS_PER_SEC << endl;
+        }
+	for (int i=0; i<1000; i++){
+                arg=generate(i,100); 
+                begin=clock();
+                //arg=generate(i,100);
+                quickSort(arg, 0, arg.size()-1, 1);
+                end=clock();
+                mf2 << i << "," << (float)(1000 * end-begin) / CLOCKS_PER_SEC << endl;
+        }
 	myfile.close();
-
+	mf1.close();
+	mf2.close();
 }
