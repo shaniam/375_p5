@@ -1,20 +1,20 @@
-All: main merge
+All: test
 
-main: main.cpp
+main: main.cpp 
 	g++ -Wall -g -o main main.cpp
 
-merge: mergetest.cpp
-	g++ -Wall -g -o merge mergetest.cpp
+test: 
+	g++ -Wall -g mergetest.h mergetest.cpp qspartitions.h qspartitions.cpp test.cpp -o test
+
 
 clean:
 	rm -rf *.txt
 	rm test
-	rm merge
 checkmem:All
 	valgrind ./merge
 
 gdb: test
-	gdb -x gdb_cmds.txt merge
+	gdb -x gdb_cmds.out test
 
 
 run:All
