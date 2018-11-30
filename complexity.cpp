@@ -7,18 +7,15 @@
 #include <stdio.h>
 #include <math.h>
 #include <algorithm>
-#include <ctime>
+#include <chrono>
 #include <cstdlib>
 #include <functional>
 #include <time.h>
 #include <stdlib.h>
 #include "qspartitions.h"
-<<<<<<< HEAD
-#include "mergetest.h"
-=======
 #include "linear.h"
+#include "mergetest.h"
 
->>>>>>> eb7167cc21ad4d0302cffa4da24904226a86be75
 using namespace std;
 
 vector<pair<int,char>> generate(int size, int range){
@@ -35,33 +32,9 @@ vector<pair<int,char>> generate(int size, int range){
 
 
 }
-void print(vector<pair<int, char>> val){
-	cerr << "{" ;
-	for (auto x : val){
-	cerr << x.first << "," ;
-	}
-	cerr << "}" << endl;
-}
 
 int main(){
-	clock_t begin;
-	clock_t end;
 	vector<pair<int, char>> arg;
-<<<<<<< HEAD
-	ofstream myfile;
-	ofstream mf1;
-	ofstream mf2;
-	ofstream mf3, mf4, mf5, mf6,mf7;
-	#if 1
-	myfile.open("lastpivot.csv");
-	mf1.open("randompivot.csv");
-	mf2.open("hoarsepivot.csv");
-	mf3.open("mergesort.csv");
-	mf4.open("worstlp.csv");
-	mf5.open("worstrp.csv");
-	mf6.open("worsthp.csv");
-	mf7.open("sortedmergesort.csv");
-=======
 	ofstream myfile, mf1, mf2, pidgeonholeFile, radixFile2, radixFile4, radixFile8, radixFile16, radixFile32;
 	myfile.open("lastpivot.csv");
 	mf1.open("randompivot.csv");
@@ -72,134 +45,107 @@ int main(){
 	radixFile8.open("radixSort8.csv");
 	radixFile16.open("radixSort16.csv");
 	radixFile32.open("radixSort32.csv");
->>>>>>> eb7167cc21ad4d0302cffa4da24904226a86be75
-	for (int i=0; i<1000; i++){
-		arg=generate(i,100);
-		begin=clock();
-		//arg=generate(i,100);
-		quickSort(arg, 0, arg.size()-1, 0);
-		end=clock();
-		myfile << i << "," << (float)(1000 * end-begin) / CLOCKS_PER_SEC << endl;
-	}
-	for (int i=0; i < 1000; i++){
-                arg=generate(i,100);
-                begin=clock();
+	for(int i = 100; i < 10000001; i *= 10){
+	cout << "i: " << i << endl;
+	int nums = 1000;
+	arg=generate(i, nums);
+
+	auto start = chrono::high_resolution_clock::now();
+	tripartMSort(arg, 1, arg.size());
+	auto finish = chrono::high_resolution_clock::now();
+	chrono::duration<double, std::milli> elapsed = finish - start;
+	cout << "Merge Sort 3 way: "<< i << "," << elapsed.count() << endl;
+
+	start = chrono::high_resolution_clock::now();
+	mergeSort(arg, 1, arg.size());
+	finish = chrono::high_resolution_clock::now();
+	elapsed = finish - start;
+	cout << "Merge Sort 2 way: "<< i << "," << elapsed.count() << endl;
+
+
+	//for (int i=0; i<1000; i++){
+
+		// start = chrono::high_resolution_clock::now();
+		// //arg=generate(i,100);
+		// quickSort(arg, 0, arg.size()-1, 0);
+		// start = chrono::high_resolution_clock::now();
+		// cout << "Last Pivot: " << i << "," << elapsed.count() << endl;
+	//}
+	//for (int i=0; i < 1000; i++){
+              //arg=generate(i, nums);
+                start = chrono::high_resolution_clock::now();
                 //arg=generate(i,100);
                 quickSort(arg, 0, arg.size()-1, 1);
-                end=clock();
-               	mf1 << i << "," << (float)(1000 * end-begin) / CLOCKS_PER_SEC << endl;
-        }
-	for (int i=0; i<1000; i++){
-                arg=generate(i,100);
-                begin=clock();
+                finish = chrono::high_resolution_clock::now();
+								elapsed = finish - start;
+               	cout << "Random Pivot: " << i << "," << elapsed.count() << endl;
+      //  }
+	//for (int i=0; i<1000; i++){
+                //arg=generate(i, nums);
+                start = chrono::high_resolution_clock::now();
                 //arg=generate(i,100);
                 quickSort(arg, 0, arg.size()-1, 1);
-                end=clock();
-                mf2 << i << "," << (float)(1000 * end-begin) / CLOCKS_PER_SEC << endl;
-        }
-<<<<<<< HEAD
-	for (int i=0; i<5000; i++){
-                arg=generate(i,100); 
-                begin=clock();
-                mergeSort(arg, 0, arg.size());
-                end=clock();
-                mf3 << i << "," << (float)(1000 * end-begin) / CLOCKS_PER_SEC << endl;
-        }
-	arg={};
-	for (int i=0; i<1000; i++){
-		arg.push_back(make_pair(i, 'a'));
-		begin=clock();
-                quickSort(arg, 0, arg.size()-1, 0);
-                end=clock();
-                mf4 << i << "," << (float)(1000 * end-begin) / CLOCKS_PER_SEC << endl;
-	}
-	arg={};
-	for (int i=0; i<1000; i++){
-		arg.push_back(make_pair(i,'a'));
-		begin=clock();
-		quickSort(arg, 0, arg.size()-1, 1);
-		end=clock();
-		mf5 << i << "," << (float)(1000 * end-begin)/ CLOCKS_PER_SEC << endl;
+                finish = chrono::high_resolution_clock::now();
+								elapsed = finish - start;
+                cout << "Hoare's Pivot: "<< i << "," << elapsed.count() << endl;
 
-	}
-	//arg.reserve(1000);
-	arg={};
-	vector<pair<int, char>> ret;
-	for (int i=0; i<1000; i++){
-		arg.push_back(make_pair(i,'a'));
-		ret=arg;
-                begin=clock();
-               	quickSort(ret, 0, arg.size()-1, 2);
-                end=clock();
-		//print(arg);
-		mf6 << i << "," << (float)(1000 * end-begin)/  CLOCKS_PER_SEC << endl;
-	}
-	arg={};
-	for (int i=0; i<1000; i++){
-                arg.push_back(make_pair(i,'a'));
-                begin=clock();
-                mergeSort(ret, 0, arg.size());
-                end=clock();
-                //print(arg);
-                mf7 << i << "," << (float)(1000 * end-begin)/  CLOCKS_PER_SEC << endl;
-        }
-	#endif
-#if 0	
-	arg={make_pair(7,'a'),make_pair(6,'a'),make_pair(5,'a'),make_pair(4,'a'),make_pair(3,'a'),make_pair(2,'a'),make_pair(1,'a')};
-	//1 == hoars partition
-	quickSort(arg, 0, arg.size()-1,0);
-	print(arg);
-#endif
-	myfile.close();
-	mf1.close();
-	mf2.close();
-	mf3.close();
-	mf4.close();
-	mf5.close();
-	mf6.close();
-	mf7.close();
-=======
+								start = chrono::high_resolution_clock::now();
+								//arg=generate(i,100);
+								//quickSort(arg, 0, arg.size()-1, 0);
+								finish = chrono::high_resolution_clock::now();
+								elapsed = finish - start;
+								cout << "Last Pivot: " << i << "," << elapsed.count() << endl;
+      //  }
 
-	for(int i = 0; i < 1000; i++){
-			cout << "I: " << i << endl;
-			arg = generate(i, 100);
 
-			//Radix, d = 2
-			begin = clock();
-			radixSort(arg, 2, 1000);
-			end = clock();
-			radixFile2 << i << "," << (float)(1000 * end - begin) / CLOCKS_PER_SEC << endl;
-			//
+
+	//for(int i = 0; i < 1000; i++){
+
+			//arg=generate(i, nums);
+
+			// //Radix, d = 2
+			// start = chrono::high_resolution_clock::now();
+			// radixSort(arg, 2, nums);
+			// finish = chrono::high_resolution_clock::now();
+			// cout << "Radix 2: "<< i << "," << elapsed.count() << endl;
+			// //
 			//Radix - Counting Sort, d = 4
-			begin = clock();
-			radixSort(arg, 4, 1000);
-			end = clock();
-			radixFile4 << i << "," << (float)(1000 * end - begin) / CLOCKS_PER_SEC << endl;
+			start = chrono::high_resolution_clock::now();
+			radixSort(arg, 4, nums);
+			finish = chrono::high_resolution_clock::now();
+			elapsed = finish - start;
+			radixFile4 << i << "," << elapsed.count() << endl;
 
 			//Radix, d = 8
-			begin = clock();
-			radixSort(arg, 8, 1000);
-			end = clock();
-			radixFile8 << i << "," << (float)(1000 * end - begin) / CLOCKS_PER_SEC << endl;
+			start = chrono::high_resolution_clock::now();
+			radixSort(arg, 8, nums);
+			finish = chrono::high_resolution_clock::now();
+			elapsed = finish - start;
+			cout << "Radix 4: "<< i << "," << elapsed.count() << endl;
 
 			//Radix, d = 16
-			begin = clock();
-			radixSort(arg, 16, 1000);
-			end = clock();
-			radixFile16 << i << "," << (float)(1000 * end - begin) / CLOCKS_PER_SEC << endl;
+			start = chrono::high_resolution_clock::now();
+			radixSort(arg, 16, nums);
+			finish = chrono::high_resolution_clock::now();
+			elapsed = finish - start;
+			cout << "Radix 16: " << i << "," << elapsed.count() << endl;
 
 			//Radix, d = 32
-			begin = clock();
-			radixSort(arg, 32, 1000);
-			end = clock();
-			radixFile32 << i << "," << (float)(1000 * end - begin) / CLOCKS_PER_SEC << endl;
+			start = chrono::high_resolution_clock::now();
+			radixSort(arg, 32, nums);
+			finish = chrono::high_resolution_clock::now();
+			elapsed = finish - start;
+			cout << "Radix 32: "<< i << "," << elapsed.count() << endl;
 
 			//Pidgeonhole
-			begin = clock();
-			pidgeonholeSort(arg, 1000, i);
-			end = clock();
-			pidgeonholeFile << i << "," << (float)(1000 * end - begin) / CLOCKS_PER_SEC << endl;
-	}
+			start = chrono::high_resolution_clock::now();
+			pidgeonholeSort(arg, nums, i);
+			finish = chrono::high_resolution_clock::now();
+			elapsed = finish - start;
+			cout << "Pidgeonhole: "<< i << "," << elapsed.count() << endl;
+			cout << endl;
+		}
+	//}
 
 	myfile.close();
 	mf1.close();
@@ -211,5 +157,4 @@ int main(){
 	radixFile16.close();
 	radixFile32.close();
 
->>>>>>> eb7167cc21ad4d0302cffa4da24904226a86be75
 }
