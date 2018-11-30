@@ -13,6 +13,8 @@
 #include <time.h>
 #include <stdlib.h>
 #include "qspartitions.h"
+#include "mergetest.h"
+
 using namespace std;
 
 int main(){
@@ -35,23 +37,27 @@ int main(){
 	}
 	qs=test;
 	ofstream qoutput1;
-	qoutput1.open("qsoutput1.txt");
+	qoutput1.open("tsoutput1.txt");
 	input1.close();
 	stable_sort(test.begin(), test.end());
 	ofstream answer1;
 	answer1.open("correct_stable_input1.txt");
-	ofstream answerone;
-	quickSort(qs, 0, qs.size()-1, 0);
-	answerone.open("correct_input1.txt");
+	//ofstream answerone;
+
+	int size = qs.size();
+	tripartMSort(qs, 0, size);
+	//mergeSort(qs, 0, qs.size());
+
+	//answerone.open("correct_input1.txt");
 	for (auto x: test){
 		answer1 << x.first << " " << x.second << endl;
-		answerone << x.first << endl;
+		//answerone << x.first << endl;
 	}
 	for (auto x: qs){
-		qoutput1 << x.first << endl;
+		qoutput1 << x.first << " " << x.second << endl;
 	}
 
 	answer1.close();
-	answerone.close();
+	//answerone.close();
 	qoutput1.close();
 }

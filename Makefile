@@ -3,13 +3,16 @@ R=complexity
 S=qspartitions
 CFLAGS= -Wall -Wextra -DDEBUG -g -pedantic -std=c++14
 
-all: $(Q).o $(S).o $(R)
+all: $(Q)
+
+$(Q): $(Q).cpp
+		g++ $(CFLAGS) $(Q).cpp -o $(Q)
 
 $(Q).o: $(Q).cpp $(Q).h
 	g++ $(CFLAGS) -o $(Q).o -c $(Q).cpp
 
-$(R): $(R).o $(Q).o $(S).o
-	g++ $(CFLAGS) -o $(R) $(R).o
+$(R): $(R).cpp $(Q).cpp $(S).cpp
+	g++ $(CFLAGS) $(R).cpp $(S).cpp $(Q).cpp -o $(R)
 
 $(R).o: $(R).cpp $(Q).o $(S).o
 	g++ $(CFLAGS) -o $(R).o -c $(R).cpp

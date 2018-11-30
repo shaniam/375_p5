@@ -6,27 +6,14 @@
 
 using namespace std;
 
-int main(){}
-
 void radixSort(vector<pair<int, char>> &vect, int d, int max){
 
   int k = 0, digit = 32 / d;
 
-  if(d == 1){
-    k = 10;
-  }
-  else{
-    k = pow(2.0, digit);
-  }
+  k = pow(2.0, digit);
 
   for(int i = 1; max / i > 0; i *= k){
     countingSort(vect, k, vect.size(), i);
-
-    // for(int j = 0; j < 100; j++){
-    //   cout << "j: " << j << endl;
-    //   cout << "EXP: " << i << endl;
-    //   cout << "Num: " << vect[j] << endl << endl;
-    // };
   }
 }
 
@@ -46,21 +33,18 @@ void countingSort(vector<pair<int, char>> &a, int k, int n, int exp){
   }
 
   for(int i = 0; i < n; i++){
-        a[i].first = b[i];
+    a[i].first = b[i];
   }
 }
 
 void pidgeonholeSort(vector<pair<int, char>> &vect, int k, int n){
   vector<int> c(k, 0);
 
-  for(int i = 0; i < k; i++){
-    c[i] = 0;
-  }
-  for(int j = 0; j < n; j++){
+  for(int j = 1; j < n; j++){
     c[vect[j].first] = c[vect[j].first] + 1;
   }
-  int q = 0;
-  for (int j = 0; j < k; j++){
+  int q = 1;
+  for (int j = 1; j < k; j++){
     while(c[j] > 0){
       vect[q].first = j;
       c[j] = c[j] - 1;
@@ -68,3 +52,20 @@ void pidgeonholeSort(vector<pair<int, char>> &vect, int k, int n){
     }
   }
 }
+
+// int main(){
+//
+// vector<pair<int, char>> numberList;
+//
+// for(int i = 0; i < 10; i++){
+//   numberList.push_back(make_pair(rand() % 10000000, 'a'));
+// }
+//
+// radixSort(numberList, 1, 10000000);
+//
+// for(int i = 0; i < 10; i++){
+//   cout << "I: " << i << " Num: " << numberList[i].first << endl;
+// }
+//
+// return 0;
+// }
