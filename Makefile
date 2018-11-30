@@ -1,22 +1,32 @@
-All: main merge
+Q=linear
+R=complexity
+S=qspartitions
+CFLAGS= -Wall -Wextra -DDEBUG -g -pedantic -std=c++14
 
-main: main.cpp
-	g++ -Wall -g -o main main.cpp
+all: $(Q)
 
-merge: mergetest.cpp
-	g++ -Wall -g -o merge mergetest.cpp
+$(Q): $(Q).cpp
+		g++ $(CFLAGS) $(Q).cpp -c -o $(Q)
+
+$(Q).o: $(Q).cpp $(Q).h
+	g++ $(CFLAGS) -o $(Q).o -c $(Q).cpp
+
+$(R): $(R).cpp $(Q).cpp $(S).cpp
+	g++ $(CFLAGS) $(R).cpp $(S).cpp $(Q).cpp -o $(R)
+
+$(R).o: $(R).cpp $(Q).o $(S).o
+	g++ $(CFLAGS) -o $(R).o -c $(R).cpp
+
+$(S).o: $(S).cpp
+	g++ $(CFLAGS) -o $(S).o -c $(S).cpp
+
+run: all
+	./$(R)
 
 clean:
-	rm -rf *.txt
+	rm -rf *.o
+	rm -rf $(Q)
+	rm -rf *~
+	rm -rf *.cpp~
+	rm -rf *.h~
 	rm -rf *.csv
-	rm test
-	rm merge
-checkmem:All
-	valgrind ./merge
-
-gdb: test
-	gdb -x gdb_cmds.txt merge
-
-
-run:All
-	./merge

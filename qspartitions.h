@@ -20,4 +20,6 @@ int hoarsPartition(vector<pair<int, char>>& arr, int p, int r);
 
 int randomPartition(vector<pair<int, char>>& arr, int p, int r);
 void quickSort(vector<pair<int, char>>& arr,  int p, int r, int arg);
+
+
 #endif

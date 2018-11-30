@@ -5,10 +5,31 @@ using namespace std;
 //Globals
 
 //Function declarations
+/*
 void merge( vector< pair<int,char> > &A, int low, int mid, int high);
 void mergeSort(vector< pair<int, char> > &A, int p, int r);
 void tripartMerge(vector< pair<int, char> > &A, int low, int mid, int high, int size);
 void tripartMSort(vector< pair<int, char> > &A, int p, int r);
+<<<<<<< HEAD
+=======
+*/
+/*
+int main(){
+	//vector<pair<int, int>> arr ={(1,2}};
+	vector<pair<int, char>> arr={make_pair(4,'s'),make_pair(2,'s'),make_pair(2,'m'),make_pair(16,'s'),make_pair(13,'s')};
+	/*
+	mergeSort(arr, 0, 5);
+	for (auto x: arr){
+		cerr << x.first << x.second << endl;
+	}
+	
+	vector<pair<int, char>> arr2={make_pair(4,'s'),make_pair(2,'s'),make_pair(2,'m'),make_pair(16,'s'),make_pair(13,'s')};
+	tripartMSort(arr2, 0, 5);
+	for (auto x: arr2){
+		cerr << x.first << x.second << endl;
+	}
+}*/
+>>>>>>> eb7167cc21ad4d0302cffa4da24904226a86be75
 
 
 //high needs to be total size of the array, not the largest index
@@ -121,13 +142,13 @@ void tripartMSort(vector< pair<int, char> > &A, int p, int r){
 
 	if( r-p>2 ) {
 
-		float third = (float)(p+r) / (float)3;
-		int q = ceil(third);
-		int t = floor(third*2);
+		float third = (float)(r-p) / (float)3;
+		int q = floor(p + third);
+		int t = floor(p + ((float)third*(float)2));
 		tripartMSort(A,p,q);
-		tripartMSort(A,q+1,t);
-		tripartMSort(A,t+1,r);
-		tripartMerge(A,p,q,t+1,r);
+		tripartMSort(A,q,t);
+		tripartMSort(A,t,r);
+		tripartMerge(A,p,q,t,r);
 
 	}else{
 		mergeSort(A, p, r);
