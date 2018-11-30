@@ -13,6 +13,7 @@
 #include <time.h>
 #include <stdlib.h>
 #include "qspartitions.h"
+#include "mergetest.h"
 using namespace std;
 
 int main(){

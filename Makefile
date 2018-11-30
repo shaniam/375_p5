@@ -8,6 +8,7 @@ merge: mergetest.cpp
 
 clean:
 	rm -rf *.txt
+	rm -rf *.csv
 	rm test
 	rm merge
 checkmem:All

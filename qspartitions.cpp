@@ -61,7 +61,8 @@ int hoarsPartition(vector<pair<int, char>>& arr, int p, int r){
 }
 
 int randomPartition(vector<pair<int, char>>& arr, int p, int r){
-	int i= rand() % r + p;
+//	int i= rand() % p + (r-1);
+	int i = p + rand() % (r-p);
 	pair<int, char> other = arr[i];
 	arr[i]=arr[r];
 	arr[r]=other;
@@ -75,10 +76,10 @@ void quickSort(vector<pair<int, char>>& arr,  int p, int r, int arg){
 		if(arg==0){
 			q=partition(arr ,p, r);
 		}
-		else if(arg==1){
+		else if(arg==2){
 			q=hoarsPartition(arr, p, r);
 		}
-		else if (arg==2){
+		else if (arg==1){
 			q=randomPartition(arr, p, r);
 		}
 		quickSort(arr, p, q-1, arg);

@@ -11,22 +11,6 @@ void tripartMerge(vector< pair<int, char> > &A, int low, int mid, int high, int 
 void tripartMSort(vector< pair<int, char> > &A, int p, int r);
 
 
-int main(){
-	//vector<pair<int, int>> arr ={(1,2}};
-	vector<pair<int, char>> arr={make_pair(4,'s'),make_pair(2,'s'),make_pair(2,'m'),make_pair(16,'s'),make_pair(13,'s')};
-	/*
-	mergeSort(arr, 0, 5);
-	for (auto x: arr){
-		cerr << x.first << x.second << endl;
-	}
-	*/
-	vector<pair<int, char>> arr2={make_pair(4,'s'),make_pair(2,'s'),make_pair(2,'m'),make_pair(16,'s'),make_pair(13,'s')};
-	tripartMSort(arr2, 0, 5);
-	for (auto x: arr2){
-		cerr << x.first << x.second << endl;
-	}
-}
-
 //high needs to be total size of the array, not the largest index
 void merge( vector< pair<int,char> > &A, int low, int mid, int high){
 
