@@ -11,8 +11,8 @@ $(Q): $(Q).cpp
 $(Q).o: $(Q).cpp $(Q).h
 	g++ $(CFLAGS) -o $(Q).o -c $(Q).cpp
 
-$(R): $(R).cpp $(Q).cpp $(S).cpp
-	g++ $(CFLAGS) $(R).cpp $(S).cpp $(Q).cpp -o $(R)
+$(R): $(R).cpp $(Q).cpp $(S).cpp mergetest.cpp
+	g++ $(CFLAGS) $(R).cpp $(S).cpp $(Q).cpp mergetest.cpp -o $(R)
 
 $(R).o: $(R).cpp $(Q).o $(S).o
 	g++ $(CFLAGS) -o $(R).o -c $(R).cpp

@@ -14,10 +14,7 @@
 #include <stdlib.h>
 #include "qspartitions.h"
 #include "mergetest.h"
-<<<<<<< HEAD
-=======
 
->>>>>>> eb7167cc21ad4d0302cffa4da24904226a86be75
 using namespace std;
 
 int main(){
@@ -40,7 +37,7 @@ int main(){
 	}
 	qs=test;
 	ofstream qoutput1;
-	qoutput1.open("tsoutput1.txt");
+	qoutput1.open("tsoutput100.txt");
 	input1.close();
 	stable_sort(test.begin(), test.end());
 	ofstream answer1;

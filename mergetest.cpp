@@ -29,7 +29,6 @@ int main(){
 		cerr << x.first << x.second << endl;
 	}
 }*/
->>>>>>> eb7167cc21ad4d0302cffa4da24904226a86be75
 
 
 //high needs to be total size of the array, not the largest index
