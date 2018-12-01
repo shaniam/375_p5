@@ -37,11 +37,15 @@ int main(){
 	vector<pair<int, char>> arg;
 	ofstream myfile, mf1, mf2, pidgeonholeFile, radixFile2, radixFile4, radixFile8, radixFile16, radixFile32;
 	int nums;
-	arg={}
-	int counting=0
 	for(int i = 100; i < 10000001; i *= 10){
-		/*arg.push_back(counting)*/
+		arg=generate(i, 1000);
 		cout << "i: " << i << endl;
+		auto start=chrono::high_resolution_clock::now();
+		quickSort(arg, 0, arg.size()-1,0);
+		auto end=chrono::high_resolution_clock::now();
+		chrono::duration<double, std::milli> elapsed= end-start;
+		cout << "Last Pivot: " << i << "," << elapsed.count() << endl;
+/*		cout << "i: " << i << endl;
 		nums = 1000;
 		arg=generate(i, nums);
 
@@ -70,12 +74,14 @@ int main(){
 	//for (int i=0; i < 1000; i++){
               	//arg=generate(i, nums);
                  start = chrono::high_resolution_clock::now();
+                //arg=generate(i,100);
                 quickSort(arg, 0, arg.size()-1, 1);
                  finish = chrono::high_resolution_clock::now();
 								 elapsed = finish - start;
                	cout << "Random Pivot: " << i << "," << elapsed.count() << endl;
       //  }
-                arg=generate(i, nums);
+	//for (int i=0; i<1000; i++){
+                //arg=generate(i, nums);
                 start = chrono::high_resolution_clock::now();
                 //arg=generate(i,100);
                 quickSort(arg, 0, arg.size()-1, 1);
@@ -115,7 +121,7 @@ int main(){
 			// radixFile4 << i << "," << elapsed.count() << endl;
 
 			//Radix, d = 8
-			arg=generate(i, nums);
+			//arg=generate(i, nums);
 			start = chrono::high_resolution_clock::now();
 			auto maxVal = max_element(arg.begin(), arg.end());
 			radixSort(arg, 8, maxVal->first);
@@ -124,7 +130,7 @@ int main(){
 			cout << "Radix 8: "<< i << "," << elapsed.count() << endl;
 
 			//Radix, d = 16
-			arg=generate(i, nums);
+			//arg=generate(i, nums);
 			start = chrono::high_resolution_clock::now();
 			maxVal = max_element(arg.begin(), arg.end());
 			radixSort(arg, 16, maxVal->first);
@@ -133,7 +139,7 @@ int main(){
 			cout << "Radix 16: " << i << "," << elapsed.count() << endl;
 
 			//Radix, d = 32
-			arg=generate(i, nums);
+			//arg=generate(i, nums);
 			start = chrono::high_resolution_clock::now();
 			maxVal = max_element(arg.begin(), arg.end());
 			radixSort(arg, 32, maxVal->first);
@@ -142,7 +148,7 @@ int main(){
 			cout << "Radix 32: "<< i << "," << elapsed.count() << endl;
 
 			//Pidgeonhole
-			arg=generate(i, nums);
+			//arg=generate(i, nums);
 			start = chrono::high_resolution_clock::now();
 			maxVal = max_element(arg.begin(), arg.end());
 			pidgeonholeSort(arg, maxVal->first, i);
@@ -150,6 +156,8 @@ int main(){
 			elapsed = finish - start;
 			cout << "Pidgeonhole: "<< i << "," << elapsed.count() << endl;
 			cout << endl;
-			counting++;
+		*/
 		}
 	//}
+
+}
